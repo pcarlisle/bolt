@@ -6,6 +6,7 @@ require 'json'
 require 'bolt/node'
 require 'bolt/version'
 require 'bolt/executor'
+require 'bolt/config'
 
 module Bolt
   class CLIError < RuntimeError
@@ -301,11 +302,12 @@ HELP
                              end
       end
 
-      executor = Bolt::Executor.new(concurrency: options[:concurrency],
-                                    user: options[:user],
-                                    password: options[:password],
-                                    tty: options[:tty],
-                                    insecure: options[:insecure])
+      config = Bolt::Config.new(concurrency: options[:concurrency],
+                                user: options[:user],
+                                password: options[:password],
+                                tty: options[:tty],
+                                insecure: options[:insecure])
+      executor = Bolt::Executor.new(config)
 
       if options[:mode] == 'plan'
         execute_plan(executor, options)
