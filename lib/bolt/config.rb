@@ -1,21 +1,19 @@
 module Bolt
-  class Config
+  Config = Struct.new(:concurrency,
+                      :user,
+                      :password,
+                      :tty,
+                      :insecure) do
+
+    DEFAULTS = {
+      concurrency: 100,
+      tty: false,
+      insecure: false
+    }.freeze
+
     def initialize(**kwargs)
-      @config = kwargs
-    end
-
-    def get(key, default = nil)
-      @config.fetch(key)
-    rescue KeyError
-      default
-    end
-
-    def set(key, value)
-      @config[key] = value
-    end
-
-    def keys
-      @config.keys
+      super()
+      DEFAULTS.merge(kwargs).each { |k, v| self[k] = v }
     end
   end
 end

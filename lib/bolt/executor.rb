@@ -16,7 +16,7 @@ module Bolt
     def on(nodes)
       results = Concurrent::Map.new
 
-      poolsize = [nodes.length, @config.get(:concurrency, 100)].min
+      poolsize = [nodes.length, @config[:concurrency]].min
       pool = Concurrent::FixedThreadPool.new(poolsize)
       nodes.each { |node|
         pool.post do

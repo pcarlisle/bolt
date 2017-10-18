@@ -34,10 +34,10 @@ module Bolt
                    log_level: Bolt.log_level || Logger::WARN)
       @host = host
       @port = port
-      @user = user || config.get(:user)
-      @password = password || config.get(:password)
-      @tty = config.get(:tty, false)
-      @insecure = config.get(:insecure, false)
+      @user = user || config[:user]
+      @password = password || config[:password]
+      @tty = config[:tty]
+      @insecure = config[:insecure]
       @uri = uri
 
       @logger = init_logger(level: log_level)
